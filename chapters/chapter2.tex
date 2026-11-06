@@ -1,0 +1,57 @@
+% ===========================================================================
+%  Chapter 2 -- Data and Methods
+%  Figures for this chapter go in figures/chapter2/
+% ===========================================================================
+\chapter{Data and Methods}\label{ch:data}
+\chapterfigs{chapter2}
+
+\section{Sample selection}\label{sec:sample}
+
+The sample (\cref{fig:sample}, \cref{tab:sample}) is defined by stellar mass and \SFR, estimated with \textsc{cigale} \citep{Boquien2019}.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.65\textwidth]{sample_mock}
+  \caption{Distribution of the (mock) sample in the \Mstar--\SFR plane.}
+  \label{fig:sample}
+\end{figure}
+
+\section{Tables}\label{sec:tables}
+
+Tables use the thesis style defined in \texttt{preamble.tex}. Three environments are available: \texttt{uatblr} (plain), \texttt{uatalltblr} (with table notes, used inside \texttt{table}) and \texttt{ualongtblr} (multi-page, see \cref{app:long}). They are built on \texttt{tabularray}, so every \texttt{tabularray} key still works: \texttt{column\{1\}=\{font=\textbackslash bfseries\}} for a bold first column, \texttt{row\{even\}=\{bg=tablegray\}} for zebra rows, \texttt{Q[si=\{...\}]} for decimal alignment, and \verb|\TblrNote| for notes. In \cref{tab:sample} the header has two rows (names and units) and the last row is a summary row. 
+
+\begin{table}[tbp]
+  \centering
+  \begin{uatalltblr}[
+      caption = {Properties of the example sample (mock values).},
+      label   = {tab:sample},
+      note{a} = {Stellar mass derived from SED fitting.},
+      note{b} = {Specific SFR averaged over the last \qty{100}{\mega\year}.},
+      remark{Notes} = {All values are for illustration only.},
+    ]{
+      width   = 0.9\linewidth,
+      colspec = {X[l] Q[si={table-format=1.4}] Q[si={table-format=2.2}] Q[si={table-format=-2.2}] X[c]},
+      row{1-2}   = {guard, font=\tabfont\bfseries},
+      row{2}     = {font=\tabfont},
+      column{1}  = {font=\tabfont\bfseries},
+      hline{2}   = {0pt},
+      hline{3,7} = {0.05em},
+    }
+    ID    & {$z$}  & {$\log\Mstar$\TblrNote{a}} & {$\log\sSFR$\TblrNote{b}} & Environment \\
+          &        & {(\unit{\solarmass})}        & {(\unit{\per\year})}       &             \\
+    G001  & 0.0123 & 10.35 & -9.80  & Cluster \\
+    G002  & 0.0210 &  9.87 & -9.41  & Field   \\
+    G003  & 0.0187 & 10.92 & -10.25 & Cluster \\
+    G004  & 0.0305 & 10.10 & -9.55  & Group   \\
+    Mean  & 0.0206 & 10.31 & -9.75  & ---     \\
+  \end{uatalltblr}
+\end{table}
+
+
+\section{Equations}\label{sec:eqs}
+
+Equations are numbered by chapter; give each one a label and refer to it with \verb|\cref{eq:sfms}| (\cref{sec:xref}). This is an example: the main sequence is commonly parametrized as
+\begin{equation}\label{eq:sfms}
+  \log\SFR = \alpha\,\log\Mstar + \beta,
+\end{equation}
+with slope $\alpha$ and intercept $\beta$ \citep{Speagle2014}. Specific \SFR is $\sSFR=\SFR/\Mstar$.

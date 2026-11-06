@@ -1,0 +1,36 @@
+% ===========================================================================
+%  Appendix B -- figures for this appendix go in figures/appendixB/
+% ===========================================================================
+\chapter{Compiling the document}\label{app:compile}
+\chapterfigs{appendixB}
+
+
+This template must be compiled with \textbf{XeLaTeX} (not pdfLaTeX), because it uses OpenType fonts and Unicode. The output is a PDF. Besides XeLaTeX, two helper programs are run: \textbf{BibTeX} for the bibliography and \textbf{makeglossaries} for the List of Acronyms.
+
+\section{On your computer.}
+With a full TeX Live or MiKTeX installation, run in the folder of the thesis
+\begin{verbatim}
+latexmk
+\end{verbatim}
+It reads the file \texttt{latexmkrc}, uses XeLaTeX and runs BibTeX and \texttt{makeglossaries} as many times as needed. \texttt{latexmk -c} deletes the auxiliary files. Without \texttt{latexmk}, the full sequence is
+\begin{verbatim}
+xelatex main
+bibtex main
+makeglossaries main
+xelatex main
+xelatex main
+\end{verbatim}
+\texttt{makeglossaries} is a Perl script; on Windows without Perl use \texttt{makeglossaries-lite main} instead. In any case the package option \texttt{automake} (in \texttt{preamble.tex}) builds the list by itself during compilation, so it usually works even if you forget this step.
+
+\section{On Overleaf.}
+Upload the zip (\emph{New Project} $\to$ \emph{Upload Project}). Then open the project \textbf{Menu} (top left) $\to$ \textbf{Settings} and change \textbf{Compiler} to \textbf{XeLaTeX}; the default compiler (pdfLaTeX) fails with this template. Overleaf runs BibTeX and \texttt{makeglossaries} automatically. If the output looks outdated or strange, use \emph{Recompile from scratch} to clear old auxiliary files. Free accounts have a compilation time limit that a large thesis can exceed; the tips below reduce the time.
+
+\section{Overleaf on your own computer (free).}
+Overleaf is open source: the Community Edition can be installed and run locally, so you do not need a paid plan. The code is at \href{https://github.com/overleaf/overleaf}{github.com/overleaf/overleaf}; the usual way to run it is with Docker, following the instructions of the \href{https://github.com/overleaf/toolkit}{Overleaf Toolkit}. Once it is running you use it in the browser, as the online version, and the settings above are the same. Some features of the paid versions are not included.
+
+
+\section{Tips to compile faster while writing.}
+\begin{itemize}
+  \item \textbf{Compile only the chapter you are editing.} In \texttt{main.tex} uncomment the line \verb|\includeonly{chapters/chapter2}|. The other chapters are skipped but keep their numbers, citations and references.
+  \item \textbf{Use Overleaf's Draft mode} (\emph{Recompile} menu): it skips the images and is much faster.
+\end{itemize}

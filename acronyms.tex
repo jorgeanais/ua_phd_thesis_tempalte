@@ -1,0 +1,58 @@
+% ===========================================================================
+%  acronyms.tex  --  list of acronyms (loaded from main.tex)
+%
+%  Define one acronym per line:
+%      \newacronym{<label>}{<short>}{<long>}
+%  Optional plural forms:
+%      \newacronym[longplural={...}, shortplural={...}]{<label>}{<short>}{<long>}
+%
+%  Use in the text:
+%      \gls{MW}       first use -> "Milky Way (MW)",  later uses -> "MW"
+%      \glspl{GC}     plural      -> "globular clusters (GCs)" / "GCs"
+%      \Gls{GC}       capitalised first letter (start of a sentence)
+%      \Glspl{GC}     capitalised plural
+%      \glsxtrshort{MW} / \glsxtrlong{MW}   always short / always long form
+%      \glscite{2MASS}{Skrutskie2006}       astronomy style on first use:
+%                     "Two Micron All-Sky Survey (2MASS; Skrutskie et al. 2006)"
+%                     and just "2MASS" afterwards (defined in preamble.tex)
+%
+%  Notes
+%   * ONLY the acronyms actually used in the text appear in the list, so you
+%     can keep entries here that you do not use (yet).
+%   * The list is sorted alphabetically by the short form automatically.
+%   * In captions, section titles and the abstract/resumen use \glsxtrshort
+%     (or plain text): \gls there would "use up" the first expansion.
+%   * The first-use counter is reset at the start of Chapter 1 (main.tex).
+%     To expand every acronym again at the start of EACH chapter, put
+%     \glsresetall right after each \chapter{...}.
+%   * Labels are case sensitive and must not contain special characters.
+% ===========================================================================
+
+% --- Surveys, catalogues and data releases (examples) -----------------------
+\newacronym{2MASS}{2MASS}{Two Micron All-Sky Survey}
+\newacronym{SDSS}{SDSS}{Sloan Digital Sky Survey}
+\newacronym{WISE}{WISE}{Wide-field Infrared Survey Explorer}
+\newacronym{LSST}{LSST}{Legacy Survey of Space and Time}
+
+% --- Telescopes, instruments and organisations (examples) --------------------
+\newacronym{ESO}{ESO}{European Southern Observatory}
+\newacronym{HST}{HST}{Hubble Space Telescope}
+\newacronym{ALMA}{ALMA}{Atacama Large Millimeter/submillimeter Array}
+\newacronym{VLT}{VLT}{Very Large Telescope}
+\newacronym{MUSE}{MUSE}{Multi Unit Spectroscopic Explorer}
+
+% --- Astrophysics (examples) -------------------------------------------------
+\newacronym{MW}{MW}{Milky Way}
+\newacronym{ISM}{ISM}{interstellar medium}
+\newacronym{IMF}{IMF}{initial mass function}
+\newacronym[longplural={active galactic nuclei}]{AGN}{AGN}{active galactic nucleus}
+\newacronym[longplural={star-forming main sequences}]{SFMS}{SFMS}{star-forming main sequence}
+\newacronym{GC}{GC}{globular cluster}
+\newacronym{CMD}{CMD}{color-magnitude diagram}
+\newacronym[sort={LCDM}]{LCDM}{$\Lambda$CDM}{Lambda cold dark matter}
+
+% --- Methods and statistics (examples) ---------------------------------------
+\newacronym{SED}{SED}{spectral energy distribution}
+\newacronym{PSF}{PSF}{point-spread function}
+\newacronym{MCMC}{MCMC}{Markov chain Monte Carlo}
+\newacronym{ML}{ML}{machine learning}

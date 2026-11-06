@@ -1,0 +1,71 @@
+%% ===========================================================================
+%%  PhD thesis template -- Universidad de Antofagasta
+%%  Programa de Doctorado en Astrofísica y Astroinformática (CITEVA)
+%%
+%%  Compile with XeLaTeX + BibTeX + makeglossaries (list of acronyms):
+%%      latexmk                       (reads latexmkrc)
+%%  or  xelatex main && bibtex main && makeglossaries main && xelatex main && xelatex main
+%% ===========================================================================
+\documentclass[paper=letter, fontsize=12pt, twoside=false, numbers=noenddot]{scrbook}
+
+\input{preamble}
+
+%% ---------------------------------------------------------------------------
+%%  THESIS DATA  (edit here; used by the title page and the PDF metadata)
+%% ---------------------------------------------------------------------------
+\newcommand{\ThesisTitle}{Title for a Thesis on Something Very Important About Stars, Gas, Galaxies, ...}
+\newcommand{\ThesisAuthor}{Juan Carlos Bodoque}
+\newcommand{\ThesisSupervisors}{Policarpo Avendaño}
+\newcommand{\ThesisKeywords}{star formation; Schmidt--Kennicutt law; star-forming main sequence; environment}
+\newcommand{\ThesisPalabras}{formación estelar; ley de Schmidt--Kennicutt; secuencia principal; entorno}
+\hypersetup{pdftitle={\ThesisTitle}, pdfauthor={\ThesisAuthor},
+            pdfkeywords={\ThesisKeywords}, pdfsubject={PhD thesis, Universidad de Antofagasta}}
+
+%% ACRONYMS: defined in acronyms.tex (only those used in the text are listed)
+\input{acronyms}
+
+%% To compile only some chapters (much faster while writing), uncomment:
+% \includeonly{chapters/chapter2}
+
+\begin{document}
+
+%% ------------------------------- FRONT MATTER -------------------------------
+\frontmatter
+\pagestyle{plain.scrheadings}
+
+\input{frontmatter/titlepage}
+
+\input{frontmatter/abstract}        % Abstract (English)
+\input{frontmatter/resumen}         % Resumen  (Spanish)
+
+% Acknowledgements language: choose English or Spanish
+\input{frontmatter/agradecimientos} % Acknowledgements (Spanish)
+%\input{frontmatter/acknowledgements} % Acknowledgements (English)
+
+\tableofcontents
+\listoffigures
+\listoftables
+\printacronymlist                   % List of Acronyms (acronyms.tex)
+
+%% -------------------------------- MAIN MATTER --------------------------------
+\mainmatter
+\pagestyle{scrheadings}
+\glsresetall    % acronyms are spelled out again at their first use in Chapter 1
+
+\include{chapters/chapter1}   % Introduction
+\include{chapters/chapter2}   % Data and Methods
+\include{chapters/chapter3}   % Results
+\include{chapters/chapter4}   % Discussion
+\include{chapters/chapter5}   % Conclusions and Future Work
+
+%% -------------------------------- APPENDICES -----------------------------------
+\appendix
+\include{appendices/appendixA}
+\include{appendices/appendixB}
+
+%% ------------------------------- BIBLIOGRAPHY -------------------------------
+\backmatter
+\bibliographystyle{aa}        % aa.bst (astronomy author-year style)
+\bibliography{references}     % references.bib
+
+\end{document}

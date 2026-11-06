@@ -1,0 +1,29 @@
+% ===========================================================================
+%  Chapter 3 -- Results
+%  Figures for this chapter go in figures/chapter3/
+% ===========================================================================
+\chapter{Results}\label{ch:results}
+\chapterfigs{chapter3}
+
+\section{Some plots}\label{sec:sfms}
+
+\Cref{fig:sfms} uses the \texttt{subfigure} environment (package \texttt{subcaption}): each panel has its own \verb|\caption| and \verb|\label|, and the main caption describes the whole figure. Panels can be referenced individually: \cref{fig:sfms-cluster} shows a lower normalisation, as reported previously \citep[e.g.,][]{Brinchmann2004}.
+
+\begin{figure}[tbp]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{sfms_field_mock}
+    \caption{Field galaxies.}
+    \label{fig:sfms-field}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{sfms_cluster_mock}
+    \caption{Cluster galaxies.}
+    \label{fig:sfms-cluster}
+  \end{subfigure}
+  \caption{Star-forming main sequence (mock data) for (\subref{fig:sfms-field}) field and (\subref{fig:sfms-cluster}) cluster galaxies. Solid lines are linear fits.}
+  \label{fig:sfms}
+\end{figure}
+

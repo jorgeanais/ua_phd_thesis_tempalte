@@ -1,0 +1,139 @@
+% ===========================================================================
+%  Chapter 1 -- Introduction
+%  Figures for this chapter go in figures/chapter1/
+%  The sections marked "(example)" are the user manual of the template:
+%  read them, then delete them (see the checklist at the end of this chapter).
+% ===========================================================================
+\chapter{Introduction}\label{ch:intro}
+\chapterfigs{chapter1}
+
+This chapter has two roles. Section~\ref{sec:sflaws} is a sample of how running text looks, with citations, acronyms, an equation and a figure. The subsequent sections form a short user manual of the template: they show, with live output, how to cite, cross-reference, insert figures and tables, write numbers and units, and use acronyms. \Cref{sec:checklist} lists what to remove before submitting.
+
+\section{Text example}\label{sec:sflaws}
+
+The connection between the gas content of a galaxy and its star formation rate (\SFR) was first formulated by \citet{Schmidt1959} and later calibrated for entire galaxies by \citet{Kennicutt1998}. For reviews, see \citep[e.g.,][]{KennicuttEvans2012}. In the \gls{SFMS} the \SFR correlates with the stellar mass \citep{Brinchmann2004, Speagle2014}; galaxies hosting an \gls{AGN} usually fall below it.
+
+The Schmidt--Kennicutt relation reads
+\begin{equation}\label{eq:ks}
+  \Ssfr = A\,\Sgas^{N},
+\end{equation}
+where $N\approx1.4$ \citep{Kennicutt1998}; see \cref{fig:ks} for a schematic illustration of \cref{eq:ks}.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{ks_law_mock}
+  \caption{Schmidt--Kennicutt relation for mock data. The dashed line shows $N=1.4$.}
+  \label{fig:ks}
+\end{figure}
+
+\section{Getting started}\label{sec:start}
+
+\begin{enumerate}
+  \item In \texttt{main.tex} edit the thesis data: title, author, supervisors, keywords). They feed the title page and the PDF metadata.
+  \item Replace the text of \texttt{frontmatter/\allowbreak abstract.tex} (English), \texttt{frontmatter/\allowbreak resumen.tex} and \texttt{frontmatter/\allowbreak agradecimientos.tex} (Spanish).
+  \item Write each chapter in its own file, \texttt{chapters/\allowbreak chapter1.tex}, \texttt{chapter2.tex}\ldots, and put its figures in \texttt{figures/\allowbreak chapter1/\allowbreak }, \texttt{figures/\allowbreak chapter2/\allowbreak }\ldots\ Appendices go in \texttt{appendices/\allowbreak }.
+  \item Add the references you cite to \texttt{references.bib} (\cref{sec:cites}).
+  \item Define your acronyms in \texttt{acronyms.tex} (\cref{sec:acronyms}).
+  \item Compile with XeLaTeX (see Appendix \ref{app:compile}).
+\end{enumerate}
+
+\vspace{1cm}
+To add a chapter, create \texttt{chapters/\allowbreak chapter6.tex} and \texttt{figures/\allowbreak chapter6/}, start the new file with
+\begin{verbatim}
+\chapter{Title}\label{ch:title}
+\chapterfigs{chapter6}
+\end{verbatim}
+and add \verb|\include{chapters/chapter6}| in \texttt{main.tex}.
+
+\section{Citations and references}\label{sec:cites}
+
+Add the BibTeX entry to \texttt{references.bib}, then cite it with its key:
+
+\begin{itemize}
+  \item \verb|\citet{Kennicutt1998}| $\to$ \citet{Kennicutt1998} (author in the sentence);
+  \item \verb|\citep{Kennicutt1998}| $\to$ \citep{Kennicutt1998} (in parentheses);
+  \item \verb|\citep{Schmidt1959, Kennicutt1998}| $\to$ \citep{Schmidt1959, Kennicutt1998};
+  \item \verb|\citep[e.g.,][Sect.~2]{Speagle2014}| $\to$ \citep[e.g.,][Sect.~2]{Speagle2014};
+  \item \verb|\citeauthor{Boquien2019}| and \verb|\citeyear{Boquien2019}| $\to$ \citeauthor{Boquien2019} (\citeyear{Boquien2019}).
+\end{itemize}
+
+\section{Cross-references with \texttt{\textbackslash cref}}\label{sec:xref}
+
+
+The usual LaTeX command \verb|\ref| prints only the number, so you have to type the word yourself and remember the non-breaking space: \verb|Figure~\ref{fig:ks}| gives Figure~\ref{fig:ks}. This template also loads the package \texttt{cleveref}, whose command \verb|\cref| writes the word for you, according to the type of the label.
+
+If you type \verb|\cref{fig:ks}| you get \cref{fig:ks}; for a table, \verb|\cref{tab:sample}| gives \cref{tab:sample}; for an equation, \verb|\cref{eq:ks}| gives \cref{eq:ks}; for a chapter, \verb|\cref{ch:data}| gives \cref{ch:data}; and for a section, \verb|\cref{sec:cites}| gives \cref{sec:cites};
+
+It handles lists and ranges: \verb|\cref{sec:sflaws,sec:cites}| gives \cref{sec:sflaws,sec:cites}, and \verb|\crefrange{sec:sflaws}{sec:xref}| gives \crefrange{sec:sflaws}{sec:xref}; the plural is automatic.
+\verb|\ref| is still available and is useful when you want to write the text yourself.
+
+% \subsection*{Best practices}
+
+% \begin{enumerate}
+%   \item \textbf{Mark the target with \texttt{\textbackslash label}, placed \emph{after} the caption} (or right after \verb|\chapter|/\verb|\section|).
+%   \item \textbf{Use a prefix in the label name}: \texttt{fig:}, \texttt{tab:}, \texttt{eq:}, \texttt{sec:}, \texttt{ch:}, \texttt{app:}. It keeps them tidy and avoids repeated names (each label must be unique in the whole thesis).
+%   \item \textbf{Mid-sentence use \texttt{\textbackslash cref}; at the start of a sentence use \texttt{\textbackslash Cref}.} In this template \verb|\cref| uses the short forms usual in astronomy (``Fig.'', ``Eq.'') and \verb|\Cref| the full word with a capital: \verb|\Cref{fig:ks}| gives \Cref{fig:ks} and \verb|\Cref{eq:ks}| gives \Cref{eq:ks}. Tables, chapters and sections are always written in full.
+%   \item \textbf{Do not type the word yourself}: write \verb|see \cref{tab:x}|, not \verb|see Table \cref{tab:x}|, which would print ``Table Table 2.1''.
+%   \item \textbf{Panels of a figure} have their own labels (see \cref{fig:sfms-cluster}, panel b of \cref{fig:sfms}).
+%   \item \textbf{References show \texttt{??} until the second pass.} Compile again (\texttt{latexmk} does it automatically).
+% \end{enumerate}
+
+\section{Figures}\label{sec:figs}
+
+Save the figure in the folder of the chapter (\texttt{figures/\allowbreak chapter1/\allowbreak }); \verb|\chapterfigs{chapter1}| at the top of the chapter already points there, so you write only the file name, without path or extension:
+\begin{verbatim}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{ks_law_mock}
+  \caption[Short title]{Long caption below the figure.}
+  \label{fig:ks}
+\end{figure}
+\end{verbatim}
+The optional text in square brackets after \verb|\caption| is the short title used in the list of figures. Figures made of several panels use \texttt{subfigure}, see \cref{ch:results} (\cref{fig:sfms}). \verb|[tbp]| lets LaTeX place the figure at the top, on its own page or at the bottom; avoid forcing the position.
+
+\section{Units, numbers and astronomy macros}\label{sec:units}
+
+Use \texttt{siunitx} for numbers and units, so that spacing is always correct: a galaxy with $\Mstar=\qty{3.2e10}{\solarmass}$ at a distance of \qty{12.5}{\mega\parsec}, an aperture of \SI{1.5}{\arcsecond}, or a range of \qtyrange{1}{10}{\giga\year}. In ranges the unit is written only once (\verb|\qtyrange{1}{10}{\giga\year}| gives \qtyrange{1}{10}{\giga\year}, not ``\qty{1}{\giga\year}--\qty{10}{\giga\year}''); this is set by the option \texttt{range-units = single} in \texttt{preamble.tex}.
+
+Running text uses old-style figures (1959, 2012), while numbers that are measured or compared use lining (equal-height) figures: \texttt{siunitx} quantities, tables and also the digits in math mode, which are taken from Caslon so that $-0.6<\FeH<-0.4$ or $N=1.4$ match \num{1.4} and \qty{12.5}{\mega\parsec}. Letters and symbols in math stay Latin Modern, which has proper math spacing. Write numbers that carry a value in math or with \verb|\num|/\verb|\qty|, and years or counts in plain text. Common macros are defined in \texttt{macros.tex}, where you can add your own: \Halpha, \Hbeta, \nii, \oiii, \hi, \hii, $\FeH$, $\aFe$, $\Msun$, and also \verb|\Mstar|, \verb|\SFR|, \verb|\sSFR|, \verb|\Sgas|, \verb|\Ssfr|.
+
+\section{Acronyms}\label{sec:acronyms}
+
+Acronyms are handled by the package \texttt{glossaries-extra}. Define each acronym once, in the file \texttt{acronyms.tex}, for example
+\begin{verbatim}
+\newacronym{ISM}{ISM}{interstellar medium}
+\newacronym[longplural={active galactic nuclei}]
+           {AGN}{AGN}{active galactic nucleus}
+\end{verbatim}
+and write it in the text with its label. The first time it appears the long form is spelled out; afterwards only the short form is printed. You never have to remember whether you have already introduced it.
+
+\glsreset{ISM}\glsreset{AGN}\glsreset{IMF}\glsreset{2MASS}\glsreset{LCDM}%
+\begin{itemize}
+  \item \verb|\gls{ISM}| $\to$ \gls{ISM} (first use), and then \verb|\gls{ISM}| $\to$ \gls{ISM};
+  \item \verb|\glspl{AGN}| $\to$ \glspl{AGN} (plural, first use; afterwards \glspl{AGN}; irregular plurals are set with \texttt{longplural} as above);
+  \item \verb|\Gls{IMF}| $\to$ \Gls{IMF} (capital first letter, at the start of a sentence; \verb|\Glspl| for the plural);
+  \item \verb|\glsxtrshort{ALMA}| $\to$ \glsxtrshort{ALMA} and \verb|\glsxtrlong{ALMA}| $\to$ \glsxtrlong{ALMA} (always short / always long, without changing the first-use state);
+  \item \verb|\gls{LCDM}| $\to$ \gls{LCDM} (math is allowed in the short form; add \texttt{sort=\{LCDM\}} so it is sorted correctly in the list).
+\end{itemize}
+
+For surveys and instruments, astronomy papers usually give the reference at the first mention. \verb|\glscite{label}{bibkey}| does it automatically: \verb|\glscite{2MASS}{Skrutskie2006}| gives ``\glscite{2MASS}{Skrutskie2006}'' the first time, and ``\glscite{2MASS}{Skrutskie2006}'' afterwards. An optional third argument is passed to \verb|\citep| as a post-note: \verb|\glscite{2MASS}{Skrutskie2006}[Sect.~2]|.
+
+\subsection*{Good practice}
+\begin{itemize}
+  \item \textbf{Only the acronyms you use appear in the List of Acronyms} (after the List of Tables, also in the table of contents), sorted alphabetically. You can keep definitions in \texttt{acronyms.tex} that you do not use yet.
+  \item \textbf{In captions, section titles, the Abstract and the Resumen use \texttt{\textbackslash glsxtrshort}} (or plain text): \verb|\gls| there would ``use up'' the first expansion, which would then happen in the list of figures or in the front matter instead of in the text.
+  \item \textbf{First-use state is reset at the start of \cref{ch:intro}} (\verb|\glsresetall| after \verb|\mainmatter| in \texttt{main.tex}). To spell all acronyms out again at the beginning of every chapter, add \verb|\glsresetall| right after each \verb|\chapter{...}|; to reset a single one, \verb|\glsreset{ISM}|.
+  \item \textbf{Labels are case sensitive} and should contain only letters and digits.
+  \item The list is built by \texttt{makeglossaries}, which \texttt{latexmk} and Overleaf run automatically (see \cref{app:compile}). If the list is empty or outdated, compile once more.
+  \item Page numbers are not shown in the list; to show where each acronym is used, delete \texttt{nonumberlist} in the \texttt{glossaries-extra} options of \texttt{preamble.tex}. To make acronyms clickable links to the list, delete \texttt{nohypertypes=\{acronym\}}.
+\end{itemize}
+
+\section{Before submitting: checklist}\label{sec:checklist}
+
+\begin{enumerate}
+  \item Delete \crefrange{sec:start}{sec:checklist} of this chapter (the user manual) and the example text, figures and tables of \crefrange{ch:intro}{ch:results} and \cref{app:long,app:compile}; delete the corresponding \texttt{figures/} files.
+  \item Remove the example entries you do not cite from \texttt{references.bib} (unused entries are not printed, but they make the file harder to maintain) and the example acronyms you do not need from \texttt{acronyms.tex}.
+  \item Check that no \verb|\todo{...}| notes remain (they are printed in red).
+  \item Comment out \verb|\includeonly| in \texttt{main.tex} and compile the full document from scratch, so that all references, citations and the lists are up to date (no ``??'' in the PDF).
+\end{enumerate}
+

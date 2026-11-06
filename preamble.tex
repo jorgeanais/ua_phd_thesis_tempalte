@@ -1,0 +1,281 @@
+% ===========================================================================
+%  preamble.tex  --  packages and global settings (compile with XeLaTeX)
+%  Normally you do not need to edit this file; thesis data goes in main.tex.
+% ===========================================================================
+
+% --- Math and fonts ---------------------------------------------------------
+\usepackage{amsmath, amssymb}
+\usepackage{unicode-math}                 % loads fontspec
+\defaultfontfeatures{Ligatures=TeX}
+% Fonts are loaded by FILE name (found through kpathsea), so this works on any
+% TeX Live / MiKTeX / Overleaf, even when the fonts are not installed in the OS.
+% Main text: Adobe Caslon Pro (files in fonts/). Old-style figures in running text.
+\IfFileExists{fonts/ACaslonPro-Regular.otf}{%
+\setmainfont{ACaslonPro}[
+  Path           = fonts/ ,
+  Extension      = .otf ,
+  UprightFont    = *-Regular ,
+  BoldFont       = *-Bold ,
+  ItalicFont     = *-Italic ,
+  BoldItalicFont = *-BoldItalic ,
+  Ligatures      = {TeX, Common} ,
+  Numbers        = OldStyle ,
+  SmallCapsFeatures = {Letters=SmallCaps} ]
+}{%  FALLBACK (free font) when the Caslon files are not in fonts/
+\setmainfont{texgyrepagella-regular.otf}[
+  BoldFont = texgyrepagella-bold.otf , ItalicFont = texgyrepagella-italic.otf ,
+  BoldItalicFont = texgyrepagella-bolditalic.otf ,
+  Ligatures = {TeX, Common} , Numbers = OldStyle ,
+  SmallCapsFeatures = {Letters=SmallCaps} ]}
+% Headings: Caslon Semibold (old-style figures, same as the running text)
+\IfFileExists{fonts/ACaslonPro-Regular.otf}{%
+\newfontfamily\headingfont{ACaslonPro}[
+  Path           = fonts/ ,
+  Extension      = .otf ,
+  UprightFont    = *-Semibold ,
+  BoldFont       = *-Bold ,
+  ItalicFont     = *-SemiboldItalic ,
+  BoldItalicFont = *-BoldItalic ,
+  Ligatures      = {TeX, Common} ,
+  Numbers        = OldStyle ]
+}{%
+\newfontfamily\headingfont{texgyrepagella-bold.otf}[
+  BoldFont = texgyrepagella-bold.otf , ItalicFont = texgyrepagella-bolditalic.otf ,
+  Ligatures = {TeX, Common} , Numbers = OldStyle ]}
+% Sans and monospace (used rarely) and math stay Latin Modern (loaded by file name)
+\setsansfont{lmsans10-regular.otf}[
+  BoldFont       = lmsans10-bold.otf,
+  ItalicFont     = lmsans10-oblique.otf,
+  BoldItalicFont = lmsans10-boldoblique.otf]
+\setmonofont{lmmono10-regular.otf}[
+  ItalicFont     = lmmono10-italic.otf,
+  BoldFont       = lmmonolt10-bold.otf,
+  BoldItalicFont = lmmonolt10-boldoblique.otf]
+\setmathfont{latinmodern-math.otf}
+% Alternative look (needs the TeX Gyre fonts, included in a full TeX Live):
+%   \setmainfont{TeX Gyre Pagella}   \setsansfont{TeX Gyre Heros}[Scale=MatchLowercase]
+%   \setmonofont{TeX Gyre Cursor}[Scale=MatchLowercase]  \setmathfont{TeX Gyre Pagella Math}
+% Also: Libertinus Serif / Libertinus Math, STIX Two Text / STIX Two Math.
+% Digits in math mode taken from Caslon (lining figures), so $-0.6$ or $G=21$ match the
+% text and siunitx numbers. Letters and symbols stay Latin Modern: Caslon is a text font
+% without math metrics (Caslon italic letters in math give poor spacing, e.g. f(x), K_s).
+\IfFileExists{fonts/ACaslonPro-Regular.otf}{%
+  \setmathfont{ACaslonPro-Regular.otf}[Path=fonts/, Numbers=Lining, range={up/num}]}{}
+
+% --- Languages: English (main) + Spanish -----------------------------------------
+\usepackage{polyglossia}
+\setmainlanguage[variant=american]{english}
+\setotherlanguage{spanish}
+\usepackage{csquotes}                     % \enquote{...} adapts to the active language
+
+% --- Page layout and spacing -------------------------------------------------------
+\usepackage[left=3cm, right=2.5cm, top=2.5cm, bottom=2.5cm, headheight=18pt]{geometry}
+\usepackage{setspace}
+\onehalfspacing                           % 1.5 line spacing (floats/footnotes stay single)
+\usepackage{microtype}
+\setlength{\emergencystretch}{2em}        % avoids slightly overfull lines (long file names, code)
+\usepackage{enumitem}
+\setlist{nosep}
+
+% --- Colours ---------------------------------------------------------------------------
+\usepackage[dvipsnames,table]{xcolor}
+\definecolor{uablue}{HTML}{0B3C8C}
+\definecolor{mdtRed}{rgb}{0.5,0,0}
+
+% --- Headings, headers and footers (KOMA-Script) -------------------------------
+\KOMAoptions{chapterprefix=true, listof=totoc, bibliography=totoc}
+\setkomafont{disposition}{\headingfont}
+\setkomafont{chapter}{\headingfont\Huge\color{uablue}}
+\setkomafont{chapterprefix}{\headingfont\large\color{uablue}}
+\setkomafont{section}{\headingfont\Large\color{uablue}}
+\setkomafont{subsection}{\headingfont\large}
+\usepackage[automark]{scrlayer-scrpage}
+\clearpairofpagestyles
+\ihead{\headmark}                         % left:  chapter title
+\ohead{\pagemark}                         % right: page number
+\cfoot[\pagemark]{}                       % first page of a chapter: centred number
+\setkomafont{pageheadfoot}{\small\itshape}
+\setkomafont{pagenumber}{\small\upshape}
+\KOMAoptions{headsepline=true}
+\addtokomafont{caption}{\small}
+\addtokomafont{captionlabel}{\bfseries}
+
+% --- Figures --------------------------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{font=small, labelfont=bf}
+\captionsetup[table]{position=above}
+\captionsetup[longtable]{position=above, labelfont=normalfont}   % same look as tabularray captions      % table captions above (astronomy convention)
+\captionsetup[figure]{position=below}
+\usepackage{rotating}                     % sidewaysfigure / sidewaystable
+
+% Less strict float placement (helps on chapter-opening pages)
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.7}
+
+% One figure folder per chapter: figures/chapter1/, figures/chapter2/, ...
+% Call \chapterfigs{chapterN} at the top of each chapter file.
+\newcommand{\chapterfigs}[1]{\graphicspath{{figures/#1/}}}
+
+% --- Tables: tabularray + booktabs-style rules + siunitx --------------------------
+\usepackage{tabularray}
+\UseTblrLibrary{booktabs, siunitx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{pdflscape}                    % landscape pages for large tables
+\usepackage{longtable}                    % fast multi-page tables (see \uahead and longcompact below)
+
+\definecolor{tablegray}{HTML}{F2F4F7}     % light fill: zebra rows / highlighted column
+\definecolor{okgreen}{HTML}{1E8449}
+\definecolor{warnorange}{HTML}{B9770E}
+\definecolor{badred}{HTML}{B03A2E}
+
+% Lining figures for tables (running text keeps the old-style figures of Caslon)
+% Declared ONCE as a font family (cheap to select). Do not use \addfontfeatures inside
+% table cells: tabularray typesets every cell several times and compilation becomes very slow.
+\IfFileExists{fonts/ACaslonPro-Regular.otf}{%
+\newfontfamily\tablenums{ACaslonPro}[
+  Path           = fonts/ ,
+  Extension      = .otf ,
+  UprightFont    = *-Regular ,
+  BoldFont       = *-Bold ,
+  ItalicFont     = *-Italic ,
+  BoldItalicFont = *-BoldItalic ,
+  Ligatures      = {TeX, Common} ,
+  Numbers        = Lining ,
+  SmallCapsFeatures = {Letters=SmallCaps} ]
+}{%
+\newfontfamily\tablenums{texgyrepagella-regular.otf}[
+  BoldFont = texgyrepagella-bold.otf , ItalicFont = texgyrepagella-italic.otf ,
+  BoldItalicFont = texgyrepagella-bolditalic.otf ,
+  Ligatures = {TeX, Common} , Numbers = Lining ,
+  SmallCapsFeatures = {Letters=SmallCaps} ]}
+\newcommand{\tabfont}{\small\tablenums}
+\newcommand{\tabfontsmall}{\footnotesize\tablenums}   % compact tables
+
+% Thesis table style: plain white header with bold text, thin booktabs-like rules.
+%   uatblr      plain table                        (like tblr)
+%   uatalltblr  table with notes, inside \table     (like talltblr)
+%   ualongtblr  multi-page table, header repeated   (like longtblr)
+\NewTblrEnviron{uatblr}
+\NewTblrEnviron{uatalltblr}
+\NewTblrEnviron{ualongtblr}
+\SetTblrOuter[uatalltblr]{tall}
+\SetTblrOuter[ualongtblr]{long}
+\SetTblrInner[uatblr,uatalltblr,ualongtblr]{
+  rowsep   = 2pt,
+  colsep   = 6pt,
+  cells    = {font=\tabfont},
+  row{1}   = {font=\tabfont\bfseries},
+  hline{1,Z} = {0.09em},
+  hline{2}   = {0.05em},
+}
+% Compact profile for long tables (more rows per page): smaller type, tighter rows
+\SetTblrInner[ualongtblr]{
+  rowsep   = 1pt,
+  colsep   = 4pt,
+  cells    = {font=\tabfontsmall},
+  row{1}   = {font=\tabfontsmall\bfseries},
+}
+% Tables are typeset with single line spacing (the thesis body is 1.5-spaced)
+\usepackage{etoolbox}
+\AtBeginEnvironment{ualongtblr}{\singlespacing}
+\SetTblrStyle{remark}{font=\footnotesize\tablenums}
+\SetTblrStyle{note}{font=\footnotesize\tablenums}
+
+% FAST long tables: plain longtable + booktabs (much faster than longtblr, same look).
+%   \begin{longcompact} ... \end{longcompact}  wraps a longtable: small type, lining
+%   figures, single spacing, plain white header with thin rules.   \uahead{text} = bold header text.
+%   For zebra rows add \rowcolors{2}{tablegray}{white} inside longcompact.
+\newcommand{\uahead}[1]{\textbf{#1}}
+\newenvironment{longcompact}
+  {\begingroup\footnotesize\tablenums\singlespacing
+   \setlength{\tabcolsep}{6pt}\renewcommand{\arraystretch}{1.15}}
+  {\endgroup}
+
+% Status words (coloured, bold) for use inside tables
+\newcommand{\statusok}[1]{\textcolor{okgreen}{\textbf{#1}}}
+\newcommand{\statuswarn}[1]{\textcolor{warnorange}{\textbf{#1}}}
+\newcommand{\statusbad}[1]{\textcolor{badred}{\textbf{#1}}}
+
+% --- Units and numbers: \num{1.2e4}, \qty{3}{\kilo\parsec}, \ang{;;1.5} ------------
+\usepackage{siunitx}
+\sisetup{
+  mode                 = text,       % numbers and units in the text font (Caslon), not in math mode
+  reset-text-family    = false,      % inherit the current font (bold, italic...)
+  text-font-command    = {\tablenums}, % lining (equal-height) figures everywhere, also in running text
+  group-digits         = integer,
+  range-phrase         = {--},
+  range-units          = single,
+  per-mode             = symbol,
+}
+\DeclareSIUnit\parsec{pc}
+\DeclareSIUnit\solarmass{\text{M}\ensuremath{_{\odot}}}
+\DeclareSIUnit\solarlum{\text{L}\ensuremath{_{\odot}}}
+\DeclareSIUnit\year{yr}
+\DeclareSIUnit\Gyr{Gyr}
+\DeclareSIUnit\Myr{Myr}
+
+% --- Astronomy: journal macros (\apj, \mnras, \aap ...) used by ADS BibTeX ---
+\usepackage{aas_macros}
+\makeatletter\let\jnl@style\upshape\makeatother   % aas_macros uses \rm, which KOMA-Script does not define
+
+% --- Bibliography: natbib + A&A/astronomy style (aa.bst) -------------------------
+\usepackage[authoryear, round]{natbib}
+\bibpunct{(}{)}{;}{a}{}{,}                % (Kennicutt 1998; Speagle et al. 2014)
+\setlength{\bibsep}{0.35em}     % space between entries (default is much larger at 1.5 spacing)
+\setlength{\bibhang}{1.5em}    % hanging indent for entries
+% Lining figures for years in citations and for the whole reference list
+\makeatletter
+\apptocmd{\NAT@parse}{\begingroup\edef\x{\endgroup\noexpand\gdef\noexpand\NAT@date{{\noexpand\tablenums\NAT@date}}}\x}{}{\PackageWarning{preamble}{natbib patch failed}}
+\makeatother
+% Appendices: TOC entries read "Appendix A  Title" (automatic, nothing to add in the appendix files)
+\newcommand*{\uaappendixtoc}{%
+  \renewcommand*{\addchaptertocentry}[2]{\ifstrempty{##1}{\addtocentrydefault{chapter}{}{##2}}{\addtocentrydefault{chapter}{}{\appendixname\nobreakspace ##1\texorpdfstring{\enskip}{ }##2}}}}
+\apptocmd{\appendix}{\uaappendixtoc}{}{\PackageWarning{preamble}{appendix patch failed}}
+% Reference list: slightly smaller type, single spacing (the body is 1.5-spaced)
+\AtBeginEnvironment{thebibliography}{\small\tablenums\singlespacing}
+
+% --- Hyperlinks (load after natbib; keep cleveref after hyperref) --------------
+\usepackage[unicode, pdfusetitle=false]{hyperref}
+\hypersetup{
+  colorlinks   = true,                    % set to false for the printed version
+  linkcolor    = uablue,
+  citecolor    = uablue,
+  urlcolor     = uablue,
+  bookmarksopen= true,
+  bookmarksopenlevel = 1,
+  pdfstartview = FitV,
+  breaklinks   = true,
+}
+\usepackage[capitalise, nameinlink]{cleveref}   % \cref{fig:x} -> "Figure 1"
+
+% --- Acronyms (glossaries-extra; definitions in acronyms.tex) --------------------
+%   The list is built automatically (option automake + rule in latexmkrc).
+%   automake       : builds the list itself during compilation (works on Overleaf)
+%   nomain         : no general glossary, only the list of acronyms
+%   toc            : list appears in the table of contents
+%   nonumberlist   : no page numbers in the list (remove to list the pages where used)
+%   nohypertypes   : acronyms in the text are NOT coloured links (delete for links)
+\usepackage[automake, acronym, nomain, toc, nonumberlist, nopostdot, nogroupskip,
+            nohypertypes={acronym}]{glossaries-extra}
+\setabbreviationstyle[acronym]{long-short}      % first use: "Milky Way (MW)"
+\makeglossaries
+\setglossarystyle{long}                         % two columns: acronym | meaning
+\setlength{\glsdescwidth}{0.78\textwidth}
+\renewcommand*{\glsnamefont}[1]{{\tablenums\textbf{#1}}}   % bold, lining figures (2MASS, PS1)
+% Astronomy style first use with a citation:
+%   \glscite{2MASS}{Skrutskie2006} -> "Two Micron All-Sky Survey (2MASS; Skrutskie et al. 2006)"
+%   (afterwards it prints just "2MASS"). Optional 3rd argument in [] = post-note of \citep.
+\NewDocumentCommand{\glscite}{m m O{}}{%
+  \ifglsused{#1}{\gls{#1}}{%
+    \glsxtrlong{#1} \citep[\glsxtrshort{#1};][#3]{#2}\glsunset{#1}}}
+% \printacronymlist: prints the "List of Acronyms" (called in main.tex after \listoftables)
+\newcommand{\printacronymlist}{%
+  \printglossary[type=\acronymtype, title={List of Acronyms}, toctitle={List of Acronyms}]}
+
+% --- Personal macros -------------------------------------------------------------------------
+\input{macros}
